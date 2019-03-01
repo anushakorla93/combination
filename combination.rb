@@ -16,12 +16,15 @@ class DigitToWord
     end
     file_path = "dictionary.txt"
     File.foreach( file_path ) do |word|
-      dictionary[word.length] << word.chop
+      dictionary[word.length] << word.chop.to_s.downcase
     end
 
     keys = digits.chars.map{|digit|letters[digit]}
 
     results = {}
     total_number = keys.length - 1 # total numbers
-
 end
+
+# initializing the class
+final_words = DigitToWord.new().letter_combinations("6686787825")
+p final_words
