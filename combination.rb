@@ -36,11 +36,26 @@ class DigitToWord
       next if second_combination.nil?
       results[i] = [(first_combination & dictionary[i+2]), (second_combination & dictionary[total_number - i +1])] # get common values from arrays
     end
-    
+
+    #arrange words like we need as a output
+    final_words = []
+    results.each do |key, combinataions|
+      next if combinataions.first.nil? || combinataions.last.nil?
+      combinataions.first.product(combinataions.last).each do |combo_words|
+        final_words << combo_words
+      end
+    end
+
+    # for all numbers dinal output and time taken to execute the method
+    final_words << (keys.shift.product(*keys).map(&:join) & dictionary[11]).join(", ") # matche with all character
+    time_end = Time.now()
+    time_ms = (time_end.to_f - time_start.to_f) * 1000.0
+    p "Time taken to execute the conversion of a 10 digit phone number  #{time_ms.round(2)}ms"
+    final_words.sort_by { |f| f.class == Array ? f.first : f } # arraging in alphabetical order
   end
 
 end
 
 # initializing the class
-final_words = DigitToWord.new().letter_combinations("6686787825")
+final_words = DigitToWord.new().letter_combinations("2282668687")
 p final_words
